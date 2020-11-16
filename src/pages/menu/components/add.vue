@@ -39,27 +39,25 @@
           </el-select>
         </el-form-item>
         <el-form-item lable="状态" :label-width="width">
-          <el-switch v-model="form.status" active-color="#13ce66" inactive-color="#ff4949">
-            :active-value="1"
-            :inactive-value="2"
+          <el-switch v-model="form.status" active-color="#13ce66" inactive-color="#ff4949" :active-value="1" :inactive-value="2">         
           </el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="info.isShow = false">取消</el-button>
         <el-button type="primary" @click="add" v-if="info.isAdd">添加</el-button>
-        <el-button type="primary" @click="updata(id)" v-else>修改</el-button>
+        <el-button type="primary" @click="updata(form)" v-else>修改</el-button>
       </div>
     </el-dialog>
   </div>
 </template> 
 
 <script>
-import { indexRouters } from "../../../router/index";
-import { reqMenuAdd, reqMenuOne, reqMenuEdit } from "../../../util/request";
-import { mapActions, mapGetters } from "vuex";
+import {indexRouters} from "../../../router/index";
+import {reqMenuAdd,reqMenuOne,reqMenuEdit} from "../../../util/request";
+import {mapActions,mapGetters} from "vuex";
 export default {
-  props: ["info"],
+  props: ['info'],
   data() {
     return {
       //  isShow:true,
@@ -82,14 +80,14 @@ export default {
     hide() {
       this.info.isShow = false;
     },
-    //重置数据
+    //重置数据，清空之前的输入
     empty(){
        this.form.pid=0,
            this.form.title='',
            this.form.icon='',
            this.form.type=1,
            this.form.url='',
-           this.form. status=1
+           this.form.status=1
     }, 
     //添加数据到数据库
     add() {

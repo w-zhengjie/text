@@ -61,13 +61,7 @@ import {alertSuccess,alertwarning}  from '../../../util/alert'
 export default {
  data() {
  return {
-    // list: [
-    //   {
-    //     prop:1,
-    //     title:'张三',
-    //     icon:'星星'
-    //   }
-    // ]
+
  };
  },
  computed:{

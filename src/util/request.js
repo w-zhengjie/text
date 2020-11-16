@@ -2,13 +2,14 @@
 import axios from 'axios'
 import qs from 'qs'
 
+const baseUrl = '/api'
 //响应拦截器  拿到res
 axios.interceptors.response.use(res=>{
   console.log(res);
   return res
 })
 
-const baseUrl = '/api'
+
 //菜单添加
 export const reqMenuAdd=(form)=>{
   return axios({
@@ -20,7 +21,7 @@ export const reqMenuAdd=(form)=>{
 
 //菜单列表
 export const reqMenuList=(params)=>{
-  return axios({
+  return  axios({
     url:baseUrl+'/api/menulist',
     method:'get',
     params:params
@@ -152,3 +153,258 @@ export const reqUserCount=()=>{
   })
 }
 
+// 管理员登录
+export const reqUserLogin=(data)=>{
+  return  axios({
+      url:baseUrl+'/api/userlogin',
+      method:'post',
+      data:data
+  })
+}
+
+
+
+////////////////////////商品分类管理///////////////////////////////////////
+// 商品分类添加
+export const reqClassifyAdd=(form)=>{
+  var data = new FormData();
+  for(var i in form){
+      data.append(i,form[i])
+  }
+
+  return  axios({
+      url:baseUrl+'/api/cateadd',
+      method:'post',
+      data:data
+  })
+}
+// 商品分类列表
+export const reqClassifyList=(params)=>{
+  return  axios({
+      url:baseUrl+'/api/catelist',
+      method:'get',
+      params:params
+  })
+}
+
+// 商品分类删除
+export const reqClassifyDel=(id)=>{
+  return  axios({
+      url:baseUrl+'/api/catedelete',
+      method:'post',
+      data:id
+  })
+}
+
+// 商品分类获取一条数据
+export const reqClassifyOne=(params)=>{
+  return  axios({
+      url:baseUrl+'/api/cateinfo',
+      method:'get',
+      params:params
+  })
+}
+
+
+
+// 商品分类修改
+export const reqClassifyEdit=(form)=>{
+  var data = new FormData();
+  for(var i in form){
+      data.append(i,form[i])
+  }
+  return  axios({
+      url:baseUrl+'/api/cateedit',
+      method:'post',
+      data:data
+  })
+}
+
+
+////////////////////////商品规格管理///////////////////////////////////////
+// 商品规格添加
+export const reqSpecAdd=(form)=>{ 
+      return  axios({
+          url:baseUrl+'/api/specsadd',
+          method:'post',
+          data:qs.stringify(form)
+      })
+  }
+  // 商品规格列表
+  export const reqSpecList=(params)=>{
+      return  axios({
+          url:baseUrl+'/api/specslist',
+          method:'get',
+          params:params
+      })
+  }
+  
+  // 商品规格删除
+  export const reqSpecDel=(id)=>{
+      return  axios({
+          url:baseUrl+'/api/specsdelete',
+          method:'post',
+          data:id
+      })
+  }
+  
+  // 商品规格获取一条数据
+  export const reqSpecOne=(params)=>{
+      return  axios({
+          url:baseUrl+'/api/specsinfo',
+          method:'get',
+          params:params
+      })
+  }
+  
+  
+  
+  // 商品分类修改
+  export const reqSpecEdit=(form)=>{
+      return  axios({
+          url:baseUrl+'/api/specsedit',
+          method:'post',
+          data:qs.stringify(form)
+      })
+  }
+  
+
+
+
+
+  
+////////////////////////商品管理///////////////////////////////////////
+// 商品管理添加
+export const reqGoodsAdd=(form)=>{ 
+  var data = new FormData();
+  for(var i in form){
+      data.append(i,form[i])
+  }
+  return  axios({
+      url:baseUrl+'/api/goodsadd',
+      method:'post',
+      data:data
+  })
+}
+// 商品管理列表
+export const reqGoodsList=(params)=>{
+  return  axios({
+      url:baseUrl+'/api/goodslist',
+      method:'get',
+      params:params
+  })
+}
+
+// 商品管理删除
+export const reqGoodsDel=(id)=>{
+  return  axios({
+      url:baseUrl+'/api/goodsdelete',
+      method:'post',
+      data:id
+  })
+}
+
+// 商品管理获取一条数据
+export const reqGoodsOne=(params)=>{
+  return  axios({
+      url:baseUrl+'/api/goodsinfo',
+      method:'get',
+      params:params
+  })
+}
+
+
+
+// 商品管理修改
+export const reqGoodsEdit=(form)=>{
+  var data = new FormData();
+  for(var i in form){
+      data.append(i,form[i])
+  }
+  return  axios({
+      url:baseUrl+'/api/goodsedit',
+      method:'post',
+      data:data
+  })
+}
+
+///////////会员管理///////////
+// 会员列表
+export const reqVipList = () => {
+  return axios({
+      url: baseUrl+'/api/memberlist',
+      method: 'get',
+  })
+}
+
+// 会员获取（一条）
+export const reqVipOne = (params) => {
+  return axios({
+      url: baseUrl+'/api/memberinfo',
+      method: 'get',
+      params: params
+  })
+}
+
+// 会员修改
+export const reqVipEdit = (form) => {
+  return axios({
+      url: baseUrl+'/api/memberedit',
+      method: 'post',
+      params: qs.stringify(form)
+  })
+}
+
+
+///////////轮播图管理///////////
+// 轮播图添加
+export const reqBannerAdd = (form) => {
+  var data = new FormData();
+  for(var i in form) {
+      data.append(i, form[i]);
+  }
+  return axios({
+      url: baseUrl+'/api/banneradd',
+      method: 'post',
+      data: data
+  })
+}
+
+// 轮播图列表
+export const reqBannerList = () => {
+  return axios({
+      url: baseUrl+'/api/bannerlist',
+      method: 'get',
+  })
+}
+
+// 轮播图获取（一条）
+export const reqBannerOne = (params) => {
+  return axios({
+      url: baseUrl+'/api/bannerinfo',
+      method: 'get',
+      params: params
+  })
+}
+
+// 轮播图修改
+export const reqBannerEdit = (form) => {
+  var data = new FormData();
+  for(var i in form) {
+      data.append(i, form[i]);
+  }
+  return axios({
+      url: baseUrl+'/api/banneredit',
+      method: 'post',
+      data: data
+  })
+}
+
+// 轮播图删除
+export const reqBannerDel = (params) => {
+  return axios({
+      url: baseUrl+'/api/bannerdelete',
+      method: 'post',
+      data: params
+  })
+}

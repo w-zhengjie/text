@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { reqRoleAdd,reqRoleOne,reqRoleEdit} from "../../../util/request";
+import {reqRoleAdd,reqRoleOne,reqRoleEdit} from "../../../util/request";
 import {mapGetters,mapActions} from 'vuex'
 export default {
     computed: {
@@ -66,15 +66,15 @@ export default {
     //添加数据到数据库
     add() {
       // 由于要的menus是字符串数组，所以需要把数据通过stringify转为字符串
-      this.form.menus = JSON.stringify(this.$refs.tree.getCheckedKeys());
-      // console.log(this.$refs.tree.getCheckedKeys())
+      this.form.menus = JSON.stringify(this.$refs.tree.getCheckedKeys()); 
       console.log(this.form);
       reqRoleAdd(this.form).then((res) => {
-            this.reqRoleList()
+            this.reqRoleList() 
+            //刷新之前先隐藏
             this.hide()
 
       });
-    },
+    }, 
     ...mapActions({
         reqMenuList:'menu/reqMenuList',
         reqRoleList:'role/reqRoleList'
@@ -82,7 +82,7 @@ export default {
     // 获取一条数据的方法
     look(id){
         reqRoleOne({id:id}).then(res=>{
-            this.form = res.data.list
+        this.form = res.data.list
         this.form.menus =  this.$refs.tree.setCheckedKeys(JSON.parse(res.data.list.menus))
         this.form.id=id
         })

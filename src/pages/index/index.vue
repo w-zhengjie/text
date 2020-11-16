@@ -11,7 +11,7 @@
       text-color="#fff"
       active-text-color="#ffd04b">
 
-      <el-menu-item index="2">
+      <el-menu-item index="/index">
         <i class="el-icon-menu"></i>
         <span slot="title">首页</span>
       </el-menu-item>
@@ -44,11 +44,15 @@
       </el-submenu>
     </el-menu>
  
-
   </el-aside>
   <el-container>
-    <el-header>Header</el-header>
-    <el-main>
+    <el-header>
+      <div class="topbox">
+        <div class="boxleft">admin</div>
+        <div class="boxleft"><el-button type='primary'>退出</el-button></div>
+      </div>
+    </el-header>
+    <el-main> 
       <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>{{$route.name}}</el-breadcrumb-item>
@@ -64,8 +68,16 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
+ computed:{
+   ...mapGetters({
+     list:'user/list'
+   })
+ },
+ ocmponents:{
 
+ },
  data() {
  return {
  };
@@ -74,7 +86,14 @@ export default {
  },
  watch:{
  },
- methods: {},
+ methods: {
+   ...mapActions({
+     requsetUserLogin:'user/requsetUserLogin'
+   })
+ },
+ mounted(){
+   this.requsetUserLogin()
+ }
 };
 </script>
 
@@ -98,5 +117,12 @@ export default {
   }
   .login_button{
     margin-top: 20px;
+  }
+
+  .topbox{
+    float: right;
+  }
+  .boxleft{
+    float: left;
   }
 </style>

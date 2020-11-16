@@ -8,90 +8,75 @@
       default-expand-all
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="id" label="菜单编号" sortable width="180">
+      <el-table-column prop="id" label="角色编号" sortable width="180">
       </el-table-column>
-      <el-table-column prop="title" label="菜单名称" sortable width="180">
+      <el-table-column prop="rolename" label="角色名称" sortable width="180">
       </el-table-column>
-      <el-table-column prop="icon" label="菜单图标"> </el-table-column>
-      <el-table-column prop="url" label="菜单地址"> </el-table-column>
-      <el-table-column prop="status" label="状态">
-        <!-- 作用域插槽 用来获取数据-->
-        <template slot-scope="scope">
-          <div>
-               <el-button type='primary' v-if="scope.row.status==1">启用</el-button>
-               <el-button type='info' v-else disabled>禁用</el-button>
-          </div>
-        </template>
+      <el-table-column prop="address" label="状态"> 
+           <template slot-scope="scope">
+            <div>
+                <el-button type='primary' v-if="scope.row.status==1">启用</el-button>
+                <el-button type='danger' v-else>禁用</el-button>
+            </div>
+        </template>     
       </el-table-column>
       <el-table-column prop="address" label="操作">
-
-
-         <template slot-scope="scope">
-          <div>
-               <el-button type='primary' @click="updata(scope.row.id)">修改</el-button>
-               <el-button type='danger' @click="del(scope.row.id)">删除</el-button>
-          </div>
-        </template>
-        
+        <template slot-scope="scope">
+            <div>
+                <el-button type='primary' @click="updata(scope.row.id)">修改</el-button>
+                <el-button type='danger' @click="del(scope.row.id)">删除</el-button>
+            </div>
+        </template>     
       </el-table-column>
     </el-table>
   </div>
 </template>
 <script>
-//解构store中的数据
 import {mapActions,mapGetters} from 'vuex'
-import {reqMenuDel} from '../../../util/request'
-// 导入弹框
-import {alertSuccess,alertwarning}  from '../../../util/alert'
+import {reqRoleDel} from '../../../util/request'
+import {alertSuccess,alertwarning} from '../../../util/alert'
 export default {
-  computed: {
-    ...mapGetters({
-      list:'menu/list'
-    })
-  },
+    computed: {
+        ...mapGetters({
+            list:'role/list'
+        })
+    },
   components: {},
   data() {
     return {
-     
-    };
+    }
   },
   methods: {
+    //   更新数据
+    updata(id){
+        this.$emit('edit',id)
+        
+    },
     ...mapActions({
-      reqMenuList:'menu/reqMenuList'
+        reqRoleList:'role/reqRoleList'
     }),
-    // 删除
+    // 删除操作
     del(id){
-
-
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+    this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          reqMenuDel({id:id}).then(res=>{
-            this.reqMenuList()
-            alertSuccess(res.data.msg)
-            // 这是删除完成后的提示消息
-          //    this.$message({
-          //   type: 'success',
-          //   message: '删除成功!'
-          // });
+         reqRoleDel({id:id}).then(res=>{
+             this.reqRoleList()
+             alertSuccess(res.data.msg)
         })
          
         })
 
 
 
-
         
-    },
-    // 更新
-    updata(id){
-      this.$emit('edit',id)
+        
     }
   },
   mounted() {
-    this.reqMenuList()
+      this.reqRoleList()
   },
 };
 </script>
